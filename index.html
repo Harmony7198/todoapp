@@ -4,8 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TODO web</title>
-    <link rel="stylesheet" href="main.css">
-    <script src="src/loginStore.js"></script>
+    <link type="text/css" rel="stylesheet" href="main.css">
+    <script type="module" src="src/loginStore.js"></script>
+    <style>
+        #login-message {
+            color: red;
+            font-size: 20px;
+            border: 2px dashed #000
+        }
+    </style>
 </head>
 <body>
     <h1>Đăng Nhập</h1>
@@ -32,7 +39,8 @@
             var password = document.getElementById("password-input").value;
             //goi ham xu ly
             var thongbao = login(email, password);
-            alert(thongbao);
+            //alert(thongbao);
+            document.getElementById('login-message').innerHTML = thongbao;
         });
     </script>
 </body>

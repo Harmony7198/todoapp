@@ -1,5 +1,93 @@
-.form-dep {
-    background: purple;
-    font-size: 30 px;
+/* Reset some default spacing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Whole page */
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Login container */
+#form-login {
+    background: white;
+    padding: 40px;
+    width: 350px;
+
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Title */
+h1 {
+    position: absolute;
+    top: 120px;
+
+    font-size: 32px;
+    color: #333;
+}
+
+/* Labels */
+label {
+    font-weight: bold;
+    color: #444;
+}
+
+/* Input fields */
+input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+
+    font-size: 16px;
+
+    transition: 0.3s;
+}
+
+/* Input focus effect */
+input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px rgba(74,144,226,0.5);
+}
+
+/* Login button */
+button {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+
+    background: #4a90e2;
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+/* Hover effect */
+button:hover {
+    background: #357abd;
+}
+
+/* Message area */
+#login-message {
+    margin-top: 10px;
+    text-align: center;
     color: red;
 }

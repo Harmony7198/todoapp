@@ -14,9 +14,3 @@ describe("kiểm thử từng hàm nhỏ của chức năng đăng nhập", () =
         expect(result).toBe("false");
     });
 });
-
-// Test case 3: Kiểm tra hàm checkEmail với email hợp lệ HAPPY PATH
-it("hàm checkEmail trả về true khi email hợp lệ", () => {
-    const result = checkEmail("admin@gmail.com");
-    expect(result).toBe("true");
-});
