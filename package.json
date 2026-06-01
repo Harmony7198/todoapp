@@ -16,8 +16,11 @@
   "main": "index.js",
   "scripts": {
     "test:unit": "vitest run tests/unit", 
+    "test:unit:tinhtiendien": "vitest run tests/unit/tinhtiendien.unit.test.js", 
     "test:business": "vitest run tests/business", 
+    "test:business:tinhtiendien": "vitest run tests/business/tinhtiendien.business.test.js",
     "test:e2e": "playwright test --ui",
+    "test:e2e:tinhtiendien": "playwright test --ui/tests/e2e/tinhtiendien.e2e.test.js",
     "test:e2e:report": "playwright show-report"
   }, 
     "devDependencies": {

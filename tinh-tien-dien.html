@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính Tiền Điện</title>
+    <script type="module" src="src/tinhtiendien.js"></script>
+</head>
+<body>
+    <h1>Tính Tiền Điện</h1>
+    <form id="calculation-form">
+        <label>Số Kwh đã sử dụng</label>
+        <input type="number" id="kwh-input" />
+        <button type="submit" id="calculate-button">Tính Tiền</button>
+    <div id="calculation-message"></div> 
+    </form>
+    <script>
+        const calculationForm = document.getElementById('calculation-form');
+        calculationForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Ngăn chặn form submit mặc định
+            //1. Thu thập dữ liệu từ input (người dùng)
+            const inputdatakwh = document.getElementById('kwh-input').value;
+            //2. Xử lý dữ liệu (tính toán)
+          var ketqua = tinhtiendien(inputdatakwh);
+          //3. Hiển thị kết quả ra giao diện
+          document.getElementById('calculation-message').innerHTML = ketqua;
+        });
+    </script>
+</body>
+</html>
