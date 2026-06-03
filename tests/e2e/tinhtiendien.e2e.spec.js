@@ -8,4 +8,4 @@ test.describe("Kiểm thử chức năng tính tiền điện bằng E2E TEST", 
         await page.click("#calculate-button");
         const calculationMessage = page.locator("#calculation-message");
         await expect(calculationMessage).toHaveText("Vui lòng nhập số kWh tiêu thụ");
-    });
+    });});
