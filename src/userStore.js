@@ -30,6 +30,7 @@ export function validateUserData(Data) {
     if(!isValid) {
         return "Dữ liệu không hợp lệ. Cấu trúc dữ liệu phải có các key id, name, email, phone.";
     }
+    return "Du lieu hop le"
 }
 
 // hàm BUSINESS: lấy dữ liệu user và trình diễn
@@ -39,7 +40,7 @@ export async function loadUsers(apiUrl) {
     //2. gọi hàm kiểm tra dữ liệu
     const error = validateUserData(data);
     
-    if (error != undefined && error != "") {
+    if (error != undefined && error != "Du lieu hop le") {
     return error;
     }
     //3. xử lý dữ liệu, trình diễn dữ liệu dạng LIST
