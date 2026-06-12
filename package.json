@@ -15,19 +15,23 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test:unit": "vitest run tests/unit", 
-    "test:unit:tinhtiendien": "vitest run tests/unit/tinhtiendien.unit.test.js", 
-    "test:business": "vitest run tests/business", 
+    "test:unit": "vitest run tests/unit",
+    "test:unit:tinhtiendien": "vitest run tests/unit/tinhtiendien.unit.test.js",
+    "test:unit:todo": "vitest run tests/unit/todo.unit.test.js",
+    "test:business": "vitest run tests/business",
     "test:business:tinhtiendien": "vitest run tests/business/tinhtiendien.business.test.js",
     "test:business:api": "vitest run tests/business/loadUser.business.test.js",
     "test:e2e": "playwright test --ui",
     "test:e2e:tinhtiendien": "playwright test --ui/tests/e2e/tinhtiendien.e2e.test.js",
     "test:e2e:report": "playwright show-report"
-  }, 
-    "devDependencies": {
+  },
+  "devDependencies": {
     "@playwright/test": "^1.60.0",
     "@vitest/coverage-v8": "^4.1.7",
     "http-server": "^14.1.1",
     "vitest": "^4.1.7"
+  },
+  "dependencies": {
+    "json-server": "^1.0.0-beta.15"
   }
 }

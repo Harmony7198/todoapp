@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách việc cần làm</title>
+    <style>
+        .section-them-cong-viec {
+            border: 1px solid red;
+            padding: 10px;
+        }
+
+        .section-danh-sach-cong-viec {
+            border: 1px solid blue;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+    <script type="module" src="src/todoStore.js"></script>
+</head>
+
+<body>
+    <h1>Danh sách việc cần làm</h1>
+
+    <section class="section-them-cong-viec">
+        <h2>Thêm công việc</h2>
+        <form id="todo-form">
+            <label>Tên công việc</label>
+            <input type="text" id="todo-title-input" /><br />
+            <button type="submit" id="add-todo-button">Thêm công việc</button>
+        </form>
+        <div id="todo-msg"></div>
+    </section>
+
+    <section class="section-danh-sach-cong-viec">
+        <h2>Danh sách công việc</h2>
+        <ul id="todo-list">
+            <li>
+                <input type="checkbox" id="chk1" /> <span>Tên công việc</span>
+                <button type="button" id="edit-button1">➖ Sửa</button>
+                <button type="button" id="delete-button1">❌ Xóa</button>
+            </li>
+        </ul>
+    </section>
+    <script type="module">
+        const API_URL = "http://localhost:3000/todos";
+// gọi hàm business để lấy html trình diễn
+const html = await loadTodos(API_URL);
+document.getElementById('todo-list').innerHTML = html;
+
+
+
+        // Đăng ký sự kiện submit
+        const todoForm = document.getElementById('todo-form');
+        todoForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            // Thu thập thông tin người dùng trên giao diện
+            const titleTuNguoiDung = document.getElementById('todo-title-input').value;
+            // Chuẩn bị dữ liệu gởi đi (payload)
+            const payload = {
+                title: titleTuNguoiDung,
+                completed: false
+            };
+            // Gởi request POST
+            const response = await fetch('http://localhost:3000/todos', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            });
+            // Xử lý response
+            if (!response.ok) {
+                document.getElementById('todo-msg').innerHTML = '<b>Không lưu được.</b>';
+            }
+            const savedTodo = response.json();
+            document.getElementById('todo-msg').innerHTML = `Đã thêm công việc ${savedTodo.id} thành công!`;
+        });
+
+
+        // Hàm load dữ liệu: gọi API và render giao diện
+        async function loadTodos() {
+            var response = await fetch('http://localhost:3000/todos');
+            if (!response.ok) {
+                document.getElementById('todo-list').innerHTML = '<li>Không load được dữ liệu...</li>';
+            }
+            var data = await response.json();
+            // console.log(data);
+            var html = '';
+            data.forEach(job => {
+                html += '<li>';
+                html += `<input type="checkbox" id="chk${job.id}" /><span>${job.title}</span>`;
+                html += `<button type="button" id="edit-button${job.id}">➖ Sửa</button>`;
+                html += `<button type="button" id="delete-button${job.id}">❌ Xóa</button>`;
+                html += '</li>';
+            });
+            document.getElementById('todo-list').innerHTML = html;
+
+            // Đăng ký sự kiện click cho từng nút
+            data.forEach(job => {
+                const deleteButton = document.getElementById(`delete-button${job.id}`);
+                deleteButton.addEventListener('click', async () => {
+                    // alert(`đã click nút ${job.id}`);
+                    const confirmed = confirm("Bạn có chắc chắn muốn xóa không?");
+                    if (!confirmed) {
+                        return;
+                    }
+
+                    // Gởi request DELETE đến server
+                    const response = await fetch(`http://localhost:3000/todos/${job.id}`, {
+                        method: 'DELETE'
+                    });
+                    if (!response.ok) {
+                        document.getElementById('todo-msg').innerHTML = '<b>Có lỗi xảy ra, không xóa được.</b>';
+                        return;
+                    }
+
+                    document.getElementById('todo-msg').innerHTML = `<b>Đã xóa ${job.id} thành công!</b>`;
+                });
+                // Tìm nút sửa
+                const editButton = document.getElementbyId(`edit-button${job.id}`);
+                editButton.addEventListener('click', async () => {
+                    const ok = prompt('Sửa tên công việc', job.title);
+                    if (!ok) {
+                        return;
+                    }
+
+
+                    // Chuẩn bị dữ liệu gởi đi (payload)
+                    const payload = {
+                        title: newTitle,
+                    };
+                    //Gởi request PATCH đến server
+                    const response = await fetch(`http://localhost:3000/todos/${job.id}`, {
+                        method: 'PATCH',
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) {
+                        document.getElementById('todo-msg').innerHTML = '<b>Không cập nhật được </b>';
+                    }
+                    document.getElementById('todo-msg').innerHTML = '<b>Đã cập nhật được job ${job.id} thành công!</b>';
+                });
+            });
+        }
+        // Gọi hàm
+        loadTodos();
+    </script>
+</body>
+
+</html>
